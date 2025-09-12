@@ -26,6 +26,8 @@ Under "Simulation", modify the Run Time (e.g., set to 1000ns).<br>
 <br>
 
 Input/Output Signal Diagram:
+![WhatsApp Image 2025-09-12 at 09 46 49_ea57a049](https://github.com/user-attachments/assets/d794e63e-5780-4153-9f0e-3340e3ec97c1)
+
 
 
 RTL Code:
