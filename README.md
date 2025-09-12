@@ -25,21 +25,90 @@ Under "Simulation", modify the Run Time (e.g., set to 1000ns).<br>
 10. Close the Simulation Once done, by going to Simulation → "Close Simulation<br>
 <br>
 
-Input/Output Signal Diagram:
+Input/Output Signal Diagram:![WhatsApp Image 2025-09-12 at 10 17 54_49e9856b](https://github.com/user-attachments/assets/c1d14ab7-9a62-46da-b32c-37e9a094363e)
 
 
-RTL Code:
+
+RTL Code:`timescale 1ns / 1ps
+
+module mux_4_to_1(
+    input wire a,
+    input wire b,
+    input wire c,
+    input wire d,
+    input wire [1:0] s,
+    output reg y
+    );
+
+    always @(*)
+    begin
+        case(s)
+            2'b00: y = a;
+            2'b01: y = b;
+            2'b10: y = c;
+            2'b11: y = d;
+            default: y = 1'bx;
+        endcase
+    end
+
+endmodule
 
 
 TestBench:
+`timescale 1ns / 1ps
+
+module mux_4_to_1_tb;
+
+    reg tb_a;
+    reg tb_b;
+    reg tb_c;
+    reg tb_d;
+    reg [1:0] tb_s;
+    wire tb_y;
+
+    mux_4_to_1 dut (
+        .a(tb_a),
+        .b(tb_b),
+        .c(tb_c),
+        .d(tb_d),
+        .s(tb_s),
+        .y(tb_y)
+    );
+
+    initial begin
+        // Test Case 1
+        tb_a = 1'b1; tb_b = 1'b0; tb_c = 1'b1; tb_d = 1'b0;
+        
+        tb_s = 2'b00; #10;
+        tb_s = 2'b01; #10;
+        tb_s = 2'b10; #10;
+        tb_s = 2'b11; #10;
+
+        // Test Case 2
+        tb_a = 1'b0; tb_b = 1'b1; tb_c = 1'b0; tb_d = 1'b1;
+
+        tb_s = 2'b00; #10;
+        tb_s = 2'b01; #10;
+        tb_s = 2'b10; #10;
+        tb_s = 2'b11; #10;
+        
+        #20;
+        $finish;
+    end
+
+endmodule
 
 
+Output waveform:![WhatsApp Image 2025-09-12 at 10 25 19_d76284aa](https://github.com/user-attachments/assets/6408a98b-5847-4960-8d6e-f349ea26c082)
 
-Output waveform:
 
 
 
 Conclusion:
+The 4:1 multiplexer Verilog HDL implementation was successfully written and simulated using the testbench.
+The simulation confirmed that the output Y follows the selected input line based on the control signals S.
+For every change in select lines, the correct input was routed to the output.
+Hence, the design and verification of the 4:1 MUX is correct.
 
 
 
